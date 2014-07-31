@@ -26,3 +26,10 @@ package { 'tree':
 
 package { 'unzip':
 }
+
+file { '/sbin/update_puppet.sh':
+    ensure  => present,
+    content => 'cd /etc/puppet && git pull origin master && puppet apply /etc/puppet/manifests/default.pp',
+    owner   => root,
+    mode    => 744,
+}
