@@ -33,3 +33,13 @@ file { '/sbin/update_puppet.sh':
     owner   => root,
     mode    => 744,
 }
+
+class { 'postgresql::globals':
+  manage_package_repo => true,
+  version             => '9.3',
+}->
+class { 'postgresql::server': }
+postgresql::server::db { 'murmp':
+  user     => 'murmp',
+  password => postgresql_password('murmp', 'murmp'),
+}
